@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURORA | Премиальные натяжные потолки 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-blue: #00f2fe;
+            --dark-bg: #050505;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            /* Акцент на премиальном потолке через качественное изображение */
+            background-image: 
+                linear-gradient(to bottom, rgba(5, 5, 5, 0.6), rgba(5, 5, 5, 0.85)),
+                url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .neon-border {
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .neon-border:hover, .neon-border.active {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+            background: rgba(0, 242, 254, 0.05);
+        }
+
+        .error-border {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+        }
+
+        .neon-text-glow {
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+        }
+
+        .neon-button {
+            background: transparent;
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(5px);
+        }
+
+        .neon-button:hover:not(:disabled) {
+            background: var(--neon-blue);
+            color: var(--dark-bg);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .neon-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #333;
+            color: #333;
+        }
+
+        .step-transition {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); filter: blur(5px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        input[type="number"], input[type="tel"], input[type="text"] {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: white;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            background: rgba(0, 242, 254, 0.05);
+        }
+
+        .progress-bar {
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue);
+            transition: width 0.5s ease;
+        }
+
+        .bg-grid {
+            position: relative;
+        }
+        .bg-grid::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to right, rgba(0, 242, 254, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 bg-grid">
+
+    <header class="w-full max-w-4xl flex flex-col md:flex-row justify-between items-center py-8 mb-4 border-b border-white/5 relative z-10">
+        <div class="mb-4 md:mb-0">
+            <h1 class="text-xl font-extrabold tracking-[0.3em] neon-text-glow">AURORA</h1>
+            <p class="text-[10px] text-white/40 uppercase tracking-widest">Потолочные системы 2026</p>
+        </div>
+        <div class="text-right">
+            <a href="tel:+79991234567" class="text-lg font-mono text-white/80 hover:text-[#00f2fe] transition tracking-tighter">+7 (999) 123-45-67</a>
+            <p class="text-[9px] text-[#00f2fe] uppercase tracking-widest text-right">Работаем ежедневно</p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl w-full relative mb-12 z-10">
+        <div id="quiz-container" class="relative z-10 bg-black/60 backdrop-blur-2xl p-8 md:p-16 border border-white/10 rounded-3xl shadow-2xl">
+            
+            <div id="progress-container" class="hidden mb-12">
+                <div class="flex justify-between items-end mb-4">
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-white/40">Шаг <span id="current-step-num">1</span> / 3</span>
+                    <span id="progress-percent" class="text-xs font-mono text-[#00f2fe]">33%</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill" style="width: 33%"></div>
+                </div>
+            </div>
+
+            <!-- Входной экран -->
+            <div id="step-0" class="step-transition block text-center">
+                <div class="inline-block px-3 py-1 mb-6 border border-[#00f2fe]/30 rounded-full">
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-[#00f2fe] neon-text-glow">Концепт будущего 2026</span>
+                </div>
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-8 leading-tight tracking-tight">
+                    Рассчитайте стоимость <br> вашего <span class="text-[#00f2fe] neon-text-glow font-light">потолка</span>
+                </h2>
+                <p class="text-white/50 mb-10 text-lg md:text-xl font-light max-w-2xl mx-auto">
+                    За 1 минуту вы получите точную смету и эксклюзивный каталог трендовых решений 2026 года.
+                </p>
+                <button onclick="nextStep(1)" class="neon-button px-12 py-6 rounded-full text-sm uppercase tracking-[0.2em] font-semibold">
+                    Начать расчет
+                </button>
+            </div>
+
+            <div id="step-1" class="step-transition hidden">
+                <h2 class="text-2xl font-semibold mb-8 text-center tracking-wide">Выберите тип потолка</h2>
+                <div id="type-options" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div onclick="selectOption('type', 'ПВХ Матовый', this)" class="neon-border p-6 rounded-2xl cursor-pointer group">
+                        <div class="text-white/80 font-medium mb-1">ПВХ Матовый</div>
+                        <div class="text-[10px] text-white/30 uppercase tracking-widest">Классика и практичность</div>
+                    </div>
+                    <div onclick="selectOption('type', 'ПВХ Глянцевый', this)" class="neon-border p-6 rounded-2xl cursor-pointer group">
+                        <div class="text-white/80 font-medium mb-1">ПВХ Глянцевый</div>
+                        <div class="text-[10px] text-white/30 uppercase tracking-widest">Визуальное расширение</div>
+                    </div>
+                    <div onclick="selectOption('type', 'Сатиновый', this)" class="neon-border p-6 rounded-2xl cursor-pointer group">
+                        <div class="text-white/80 font-medium mb-1">Сатиновый</div>
+                        <div class="text-[10px] text-white/30 uppercase tracking-widest">Элегантный блеск</div>
+                    </div>
+                    <div onclick="selectOption('type', 'Тканевый Premium', this)" class="neon-border p-6 rounded-2xl cursor-pointer group">
+                        <div class="text-white/80 font-medium mb-1">Тканевый Premium</div>
+                        <div class="text-[10px] text-white/30 uppercase tracking-widest">Эко-дышащий материал</div>
+                    </div>
+                </div>
+                <div class="mt-10 flex justify-between">
+                    <button onclick="nextStep(0)" class="text-white/30 hover:text-white transition text-sm uppercase tracking-widest">Назад</button>
+                    <button onclick="validateAndNext(2)" class="neon-button px-8 py-3 rounded-xl text-xs uppercase tracking-widest">Далее</button>
+                </div>
+            </div>
+
+            <!-- Шаг 2 -->
+            <div id="step-2" class="step-transition hidden">
+                <h2 class="text-2xl font-semibold mb-8 text-center tracking-wide">Параметры помещения</h2>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-[0.2em] text-white/40 mb-3">Примерная площадь (кв.м.) *</label>
+                        <input type="number" id="input-area" placeholder="Например: 25" class="w-full p-4 rounded-xl text-lg font-light">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-[0.2em] text-white/40 mb-3">Количество углов *</label>
+                        <input type="number" id="input-corners" placeholder="Например: 4" class="w-full p-4 rounded-xl text-lg font-light">
+                    </div>
+                </div>
+                <div class="mt-10 flex justify-between">
+                    <button onclick="nextStep(1)" class="text-white/30 hover:text-white transition text-sm uppercase tracking-widest">Назад</button>
+                    <button onclick="validateAndNext(3)" class="neon-button px-8 py-3 rounded-xl text-xs uppercase tracking-widest">Далее</button>
+                </div>
+            </div>
+
+            <!-- Шаг 3 -->
+            <div id="step-3" class="step-transition hidden">
+                <h2 class="text-2xl font-semibold mb-8 text-center tracking-wide">Дополнительные опции</h2>
+                <div class="grid grid-cols-1 gap-3">
+                    <label class="neon-border p-5 rounded-2xl cursor-pointer flex items-center justify-between group">
+                        <span class="text-white/80 font-light">Световые линии</span>
+                        <input type="checkbox" value="Световые линии" class="w-5 h-5 accent-[#00f2fe] bg-transparent border-white/10 rounded">
+                    </label>
+                    <label class="neon-border p-5 rounded-2xl cursor-pointer flex items-center justify-between group">
+                        <span class="text-white/80 font-light">Теневой профиль (EuroKraab)</span>
+                        <input type="checkbox" value="Теневой профиль" class="w-5 h-5 accent-[#00f2fe] bg-transparent border-white/10 rounded">
+                    </label>
+                    <label class="neon-border p-5 rounded-2xl cursor-pointer flex items-center justify-between group">
+                        <span class="text-white/80 font-light">Установка люстры</span>
+                        <input type="checkbox" value="Установка люстры" class="w-5 h-5 accent-[#00f2fe] bg-transparent border-white/10 rounded">
+                    </label>
+                    <label class="neon-border p-5 rounded-2xl cursor-pointer flex items-center justify-between group">
+                        <span class="text-white/80 font-light">Ниша под штору</span>
+                        <input type="checkbox" value="Ниша под штору" class="w-5 h-5 accent-[#00f2fe] bg-transparent border-white/10 rounded">
+                    </label>
+                </div>
+                <div class="mt-10 flex justify-between">
+                    <button onclick="nextStep(2)" class="text-white/30 hover:text-white transition text-sm uppercase tracking-widest">Назад</button>
+                    <button onclick="nextStep(4)" class="neon-button px-8 py-3 rounded-xl text-xs uppercase tracking-widest">Финальный шаг</button>
+                </div>
+            </div>
+
+            <div id="step-4" class="step-transition hidden text-center">
+                <div id="final-status-icon" class="w-20 h-20 border-2 border-[#00f2fe] rounded-full flex items-center justify-center mx-auto mb-8 neon-text-glow animate-pulse">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h2 id="final-title" class="text-3xl font-extrabold mb-4 tracking-tight">Почти готово!</h2>
+                <p id="final-desc" class="text-white/50 mb-8 font-light">
+                    Расчет сформирован. Мы пришлем смету в Telegram.
+                </p>
+                <div id="input-container" class="max-w-xs mx-auto space-y-4">
+                    <input type="tel" id="user-phone" placeholder="+7 (___) ___-__-__" class="w-full p-4 rounded-xl text-center text-lg">
+                    
+                    <div class="flex items-center space-x-2 bg-white/5 p-3 rounded-xl border border-white/10">
+                        <span id="captcha-question" class="text-[#00f2fe] font-mono font-bold whitespace-nowrap">? + ? = </span>
+                        <input type="text" id="captcha-answer" placeholder="Ответ" class="w-full bg-transparent border-none focus:ring-0 text-center font-mono p-1">
+                    </div>
+
+                    <button id="submit-btn" onclick="sendToTelegram()" class="neon-button w-full py-5 rounded-xl text-xs uppercase tracking-[0.2em] font-bold">
+                        Получить расчет
+                    </button>
+                </div>
+                <div id="status-msg" class="mt-4 text-xs font-mono uppercase tracking-widest hidden"></div>
+                
+                <p class="mt-6 text-[10px] text-white/20 uppercase tracking-widest">
+                    * Нажимая на кнопку, вы соглашаетесь с политикой конфиденциальности
+                </p>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="w-full max-w-4xl py-12 border-t border-white/5 mt-auto relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+            <div>
+                <h3 class="text-[10px] uppercase tracking-[0.4em] text-[#00f2fe] mb-4">Контакты</h3>
+                <p class="text-white/80 font-light mb-2">г. Москва, ул. Технологическая, д. 42, офис 512</p>
+                <p class="text-white/80 font-light mb-4">Ежедневно: 09:00 — 21:00</p>
+                <a href="tel:+79991234567" class="text-xl font-mono text-white hover:text-[#00f2fe] transition">+7 (999) 123-45-67</a>
+            </div>
+            <div class="md:text-right flex flex-col md:items-end justify-end">
+                <p class="text-[10px] text-white/30 uppercase tracking-widest leading-loose">
+                    ИП Иванов Иван Иванович<br>
+                    ИНН: 770000000000<br>
+                    ОГРНИП: 320000000000000
+                </p>
+                <a href="#" class="text-[10px] text-white/40 hover:text-[#00f2fe] transition uppercase tracking-widest mt-4 underline underline-offset-4">Политика конфиденциальности</a>
+            </div>
+        </div>
+        <div class="text-center">
+            <p class="text-[10px] text-white/20 uppercase tracking-[0.5em]">&copy; 2026 AURORA SYSTEMS. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        const TELEGRAM_BOT_TOKEN = 'INSERT_YOUR_BOT_TOKEN_HERE';
+        const TELEGRAM_CHAT_ID = 'INSERT_YOUR_CHAT_ID_HERE';
+
+        let quizData = {
+            type: '',
+            area: '',
+            corners: '',
+            options: [],
+            phone: ''
+        };
+
+        let captchaCorrect = 0;
+
+        function generateCaptcha() {
+            const a = Math.floor(Math.random() * 10) + 1;
+            const b = Math.floor(Math.random() * 10) + 1;
+            captchaCorrect = a + b;
+            document.getElementById('captcha-question').innerText = `${a} + ${b} = `;
+        }
+
+        function showMsg(text, isError = false) {
+            const msgEl = document.getElementById('status-msg');
+            msgEl.innerText = text;
+            msgEl.classList.remove('hidden', 'text-red-500', 'text-[#00f2fe]');
+            msgEl.classList.add(isError ? 'text-red-500' : 'text-[#00f2fe]');
+        }
+
+        function validateAndNext(nextStepNum) {
+            if (nextStepNum === 2 && !quizData.type) {
+                showMsg("Выберите тип потолка", true);
+                document.getElementById('type-options').classList.add('error-border');
+                return;
+            } else {
+                document.getElementById('type-options')?.classList.remove('error-border');
+            }
+
+            if (nextStepNum === 3) {
+                const area = document.getElementById('input-area');
+                const corners = document.getElementById('input-corners');
+                
+                let valid = true;
+                if (!area.value || area.value <= 0) { area.classList.add('error-border'); valid = false; }
+                else { area.classList.remove('error-border'); }
+                
+                if (!corners.value || corners.value < 0) { corners.classList.add('error-border'); valid = false; }
+                else { corners.classList.remove('error-border'); }
+
+                if (!valid) {
+                    showMsg("Заполните обязательные поля", true);
+                    return;
+                }
+                quizData.area = area.value;
+                quizData.corners = corners.value;
+            }
+
+            nextStep(nextStepNum);
+        }
+
+        function nextStep(step) {
+            showMsg(""); 
+            document.querySelectorAll('[id^="step-"]').forEach(el => el.classList.replace('block', 'hidden'));
+            const currentStepEl = document.getElementById(`step-${step}`);
+            currentStepEl.classList.replace('hidden', 'block');
+
+            const progressContainer = document.getElementById('progress-container');
+            if (step > 0 && step < 4) {
+                progressContainer.classList.remove('hidden');
+                updateProgress(step);
+            } else {
+                progressContainer.classList.add('hidden');
+            }
+
+            if (step === 4) {
+                const checkboxes = document.querySelectorAll('#step-3 input[type="checkbox"]:checked');
+                quizData.options = Array.from(checkboxes).map(cb => cb.value);
+                generateCaptcha();
+            }
+        }
+
+        function updateProgress(step) {
+            const percent = Math.round((step / 3) * 100);
+            document.getElementById('current-step-num').innerText = step;
+            document.getElementById('progress-percent').innerText = percent + '%';
+            document.getElementById('progress-fill').style.width = percent + '%';
+        }
+
+        function selectOption(key, value, element) {
+            quizData[key] = value;
+            const parent = element.parentElement;
+            parent.querySelectorAll('.neon-border').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            parent.classList.remove('error-border');
+            setTimeout(() => validateAndNext(2), 300);
+        }
+
+        async function sendToTelegram() {
+            const phoneInput = document.getElementById('user-phone');
+            const captchaInput = document.getElementById('captcha-answer');
+            const btn = document.getElementById('submit-btn');
+            
+            quizData.phone = phoneInput.value;
+            const phoneRegex = /^(\+7|8|7)[\s\-]?\(?[489][0-9]{2}\)?[\s\-]?([0-9]{3})[\s\-]?([0-9]{2})[\s\-]?([0-9]{2})$/;
+
+            if (!phoneRegex.test(quizData.phone)) {
+                showMsg("Введите корректный номер телефона", true);
+                phoneInput.classList.add('error-border');
+                return;
+            } else {
+                phoneInput.classList.remove('error-border');
+            }
+
+            if (parseInt(captchaInput.value) !== captchaCorrect) {
+                showMsg("Неверный ответ капчи", true);
+                captchaInput.classList.add('error-border');
+                generateCaptcha();
+                return;
+            } else {
+                captchaInput.classList.remove('error-border');
+            }
+
+            if (TELEGRAM_BOT_TOKEN.includes('INSERT_YOUR')) {
+                showMsg("Ошибка конфигурации сервера", true);
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "ОТПРАВКА...";
+
+            const message = `
+🚀 <b>НОВЫЙ ЛИД ИЗ КВИЗА</b>
+-------------------------
+💎 <b>Тип:</b> ${quizData.type}
+📏 <b>Площадь:</b> ${quizData.area} кв.м.
+📐 <b>Углы:</b> ${quizData.corners} шт.
+✨ <b>Опции:</b> ${quizData.options.join(', ') || 'Нет'}
+-------------------------
+📱 <b>Телефон:</b> ${quizData.phone}
+            `;
+
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+
+                if (response.ok) {
+                    btn.classList.add('hidden');
+                    document.getElementById('input-container').classList.add('hidden');
+                    document.getElementById('final-title').innerText = "ЗАЯВКА ПРИНЯТА";
+                    document.getElementById('final-desc').innerText = "Менеджер уже готовит расчет. Мы свяжемся с вами в Telegram в течение 15 минут.";
+                    document.getElementById('final-status-icon').style.borderColor = "#00ff00";
+                    document.getElementById('final-status-icon').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00ff00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>';
+                    showMsg("Успешно отправлено!");
+                } else {
+                    throw new Error();
+                }
+            } catch (error) {
+                btn.disabled = false;
+                btn.innerText = "ПОПРОБОВАТЬ СНОВА";
+                showMsg("Ошибка сети. Попробуйте позже.", true);
+            }
+        }
+    </script>
+</body>
+</html>
