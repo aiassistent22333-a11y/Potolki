@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -152,7 +152,6 @@
                 </div>
             </div>
 
-            <!-- Входной экран -->
             <div id="step-0" class="step-transition block text-center">
                 <div class="inline-block px-3 py-1 mb-6 border border-[#00f2fe]/30 rounded-full">
                     <span class="text-[10px] uppercase tracking-[0.3em] text-[#00f2fe] neon-text-glow">Концепт будущего 2026</span>
@@ -194,7 +193,6 @@
                 </div>
             </div>
 
-            <!-- Шаг 2 -->
             <div id="step-2" class="step-transition hidden">
                 <h2 class="text-2xl font-semibold mb-8 text-center tracking-wide">Параметры помещения</h2>
                 <div class="space-y-6">
@@ -213,7 +211,6 @@
                 </div>
             </div>
 
-            <!-- Шаг 3 -->
             <div id="step-3" class="step-transition hidden">
                 <h2 class="text-2xl font-semibold mb-8 text-center tracking-wide">Дополнительные опции</h2>
                 <div class="grid grid-cols-1 gap-3">
@@ -293,8 +290,8 @@
     </footer>
 
     <script>
-        const TELEGRAM_BOT_TOKEN = 'INSERT_YOUR_BOT_TOKEN_HERE';
-        const TELEGRAM_CHAT_ID = 'INSERT_YOUR_CHAT_ID_HERE';
+        const TELEGRAM_BOT_TOKEN = '8605333381:AAHTQhfgRfUkFM6ResfDjVtL_PL90n64lJo';
+        const TELEGRAM_CHAT_ID = '404552425';
 
         let quizData = {
             type: '',
@@ -411,11 +408,6 @@
                 return;
             } else {
                 captchaInput.classList.remove('error-border');
-            }
-
-            if (TELEGRAM_BOT_TOKEN.includes('INSERT_YOUR')) {
-                showMsg("Ошибка конфигурации сервера", true);
-                return;
             }
 
             btn.disabled = true;
